@@ -1,0 +1,682 @@
+<app-header></app-header>
+<section class="show-filters">
+    <!-- <button type="button" data-toggle="modal" data-target="#involvement" >&#43;</button> -->
+    <div class="container">
+        <div class="row gutter-xs">
+            <div class="offset-lg-4 col-lg-8 col-md-8 col-sm-12 col-xs-12 filters-col">
+                <div class="row gutter-xs">
+                    <div class="col">
+                        <div class="form-group">
+                            <button class="lock pl-2 filter-desktop text-nowrap">SHOW FILTERS <i
+                                    class="fa fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="col hide-this">
+                        <div class="form-group select">
+                            <select class="form-control color-black" [formControl]="countrylist" (change)="getCountryFilter($event)" >
+                                <!-- <option>Country</option> -->
+                                <option hidden>Select Country</option>
+                                <option  *ngFor="let countryList of countryList" [value]="countryList.country" >{{countryList.country}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col hide-this width-less">
+                        <div class="form-group input">
+                            <input type="text" class="form-control" name="zip-code" [formControl]="FilterCity_zip" placeholder="City/Zip Code">
+                        </div>
+                    </div>
+                    <!-- <div class="col hide-this width-less">
+                        <div class="form-group input">
+                            <input type="text" class="form-control" name="address" placeholder="Address">
+                        </div>
+                    </div>
+                    <div class="col hide-this">
+                        <div class="form-group input">
+                            <input type="text" class="form-control" name="designer" placeholder="Architect/Designer">
+                        </div>
+                    </div> -->
+                    <div class="col hide-this">
+                        <div class="form-group select">
+                            <select class="form-control color-black" [formControl]="projectTypefilter" (change)="getProjecttypeFilter($event)">
+                                <option hidden>Select Project Type</option>
+                                <option  *ngFor="let projectType of project_typeList" [value]="projectType.id" >{{projectType.type}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col hide-this">
+                        <div class="form-group select">
+                            <select class="form-control color-black" [formControl]="categoryfilter" (change)="getCategoryFilter($event)" >
+                                <option hidden>Select Category</option>
+                                <option  *ngFor="let categoryList of categoryList" [value]="categoryList.id" >{{categoryList.category}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col hide-this">
+                        <div class="form-group input">
+                            <input type="text" class="form-control color-black" [formControl]="FilterYear" placeholder="Enter Year" >
+                        </div>
+                    </div>
+                    <div class="col hide-this">
+                        <div class="form-group input">
+                            <input type="text" [formControl]="filterElement" placeholder="Enter Element" class="form-control color-black">
+                            <!-- <select [formControl]="filterElement" class="form-control color-black">
+                                <option>Element</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                            </select> -->
+                        </div>
+                    </div>
+                    <div class="col hide-this width-less">
+                        <div class="form-group input" >
+                            <input type="text" [formControl]="filterMaterial" class="form-control" name="material" placeholder="Material">
+                        </div>
+                    </div>
+                    <div class="col hide-this">
+                        <div class="form-group">
+                            <button type="button" (click)="resetFilter()" class="btn btn-primary btn-sm btn-block">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="show-mobile-filters">
+    <div class="container">
+        <div class="row">
+            <div class="change-me offset-md-4 col-lg-12 col-md-8 col-sm-12 col-xs-12">
+                <div class="click-filters">
+                    <button id="filter-mob">SHOW FILTERS <i class="fa fa-angle-right"></i></button>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-8 col-sm-12 col-xs-12 hide-show-me">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form">
+                            <select class="form-control color-black" [formControl]="countrylist" (change)="getCountryFilter($event)" >
+                                <!-- <option>Country</option> -->
+                                <option hidden>Select Country</option>
+                                <option *ngFor="let countryList of countryList" [value]="countryList.country" >{{countryList.country}}</option>
+                            </select>
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form small-frm">
+                            <input type="text" class="form-control" name="zip-code" [formControl]="FilterCity_zip_mobile"placeholder="City/Zip Code">
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form small-frm">
+                            <input type="text" name="address" placeholder="Address">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form small-frm">
+                            <input type="text" name="designer" placeholder="Architect/Designer">
+                        </div>
+                    </div> -->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form">
+                            <select class="form-control color-black" [formControl]="projectTypefilter" (change)="getProjecttypeFilter($event)">
+                                <option hidden>Select Project Type</option>
+                                <option *ngFor="let projectType of project_typeList" [value]="projectType.id" >{{projectType.type}}</option>
+                            </select>
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form">
+                            <select class="form-control color-black" [formControl]="categoryfilter" (change)="getCategoryFilter($event)" >
+                                <option hidden>Select Category</option>
+                                <option *ngFor="let categoryList of categoryList" [value]="categoryList.id" >{{categoryList.category}}</option>
+                            </select>
+                            <i class="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form input">
+                                <input type="text" class="form-control color-black" [formControl]="FilterYear_mobile" placeholder="Enter Year" >
+                            <!-- <select class="color-black">
+                                <option>Year/Date</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                            </select>
+                            <i class="fa fa-caret-down"></i> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form input">
+                            <input type="text" [formControl]="filterElement_mobile" class="color-black" placeholder="Enter Element" />
+                            <!-- <select [formControl]="filterElement_mobile" class="color-black">
+                                <option>Element</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                                <option>Lorem Ipsum</option>
+                            </select>
+                            <i class="fa fa-caret-down"></i> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="my-form small-frm">
+                            <input type="text" [formControl]="filterMaterial_mobile" name="material" placeholder="Material">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="clear-all">
+                            <button type="reset" (click)="resetFilter()" class="btn btn-primary btn-sm">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="mobile-view">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+
+            <div class="row prop-card" *ngFor="let r of recentPosts">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                    <div class="prop-img">
+                        <img [src]="r.post_image.image" alt="" class="img-responsive">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <a target="_blank" routerLink="/involvement/{{r.id}}">
+                    <div class="prop-info">
+                        <h6 > <strong> {{r?.name | titlecase}}</strong></h6>
+                        <h6> <strong>{{r?.type | titlecase}}</strong></h6>
+                        <ul>
+
+                            <li>{{r?.city | titlecase}}, {{r?.country | titlecase}}</li>
+                            <li>{{r?.year}}</li>
+                        </ul>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mapBox">
+    <div class="container">
+        <div class="row">
+            <div class="left-box col-sm-4 col-md-4">
+                <div class="boxright">
+                    <button type="button" class="ourBtn mapOpen"><i class="fa fa-angle-double-left"></i></button>
+                    <button type="button" class="ourBtn mapClose"><i class="fa fa-angle-double-right"></i></button>
+
+
+                    <div class="row prop-card" *ngFor="let p of recentPosts">
+                        <div class="col-xl-5 col-lg-7">
+                            <div class="prop-img">
+                                <img [src]="p.post_image.image" alt="" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="col-xl-7 col-lg-5">
+                            <a target="_blank" routerLink="/involvement/{{p.id}}">
+
+                            <div class="prop-info">
+                                <h6> <strong> {{p?.name | titlecase}}</strong></h6>
+                                <h6> <strong>{{p?.project_type.type | titlecase}}</strong></h6>
+                                <ul>
+                                    <li>{{p?.city | titlecase}}, {{p?.country | titlecase}}</li>
+                                    <li>{{p?.year}}</li>
+                                </ul>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="map">
+                <div class="some-bttn">
+                    <label class="switch">
+                        <input type="checkbox" id="togglemap" (change)="changeSliderEvent($event)">
+                        <span class="slider round" style="z-index: 999;"></span>
+                    </label>
+                    <!-- <label class="switch">
+                            <input type="checkbox" (change)="SetMapToCurrentLocationEvent($event)">
+                            <span class="slider round" style="z-index: 999;"></span>
+                        </label> -->
+                    <div class="dropdown" style="z-index: 999;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+
+                        <div class="dropdown-menu my-dropdown" aria-labelledby="dropdownMenuButton">
+                            <h6>Sort post</h6>
+                            <ul>
+                                <li class="dropdown-item"><label><input (click) = favoritePost() name="fav" type="radio">Only Favourite Post</label></li>
+                                <li class="dropdown-item"><label><input (click) = allPost() name="fav" type="radio">All</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="location-icon" (click)="SetMapToCurrentLocationEvent()"><img
+                            src="assets/images/icon_web/map_locate.png"></button>
+                </div>
+                <!-- <div class="post-question" style="z-index: 999;">
+                    <button type="button" data-toggle="modal" (click)="openQuestionDialog()"><img
+                            src="assets/images/icon/pin_red.png" /></button>
+                </div> -->
+                <div id="map"></div>
+                <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.497244281992!2d79.3840934150822!3d29.6148556824248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd677aaaaa9f%3A0xe81b4a8979aa533d!2smysite%20-%20Mobile%20App%20Development%20Company!5e0!3m2!1sen!2sin!4v1568633603059!5m2!1sen!2sin" width="100%" height="800" frameborder="0" style="border:0;" allowfullscreen=""></iframe> -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- <button data-toggle="modal" data-target="#post">Post</button> -->
+<!-- <button data-toggle="modal" data-target="#create-post">Create Post</button> -->
+<!-- <button data-toggle="modal" data-target="#involvement">Involvement</button> -->
+<!-- <button data-toggle="modal" data-target="#involvement-location">Involvement Location</button> -->
+
+<!-- Post Modal -->
+<div id="post" class="modal fade " role="dialog ">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
+            <div class="modal-body my-modal-body ">
+                <!-- <button class="btn btn-simple btn-block " data-dismiss="modal" data-toggle="modal"
+                    data-target="#create-profile">CREATE A POST</button> -->
+                <button class="btn btn-simple btn-block " id="crt-post">CREATE A POST</button>
+                <button class="btn btn-third btn-block" data-dismiss="modal" data-toggle="modal"
+                    data-target="#create-post">UPLOAD A PHOTO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Post Modal -->
+<div id="create-post" class="modal fade" role="dialog ">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
+            <div class="modal-header my-modal-header ">
+                <button type="button " class="close " data-dismiss="modal ">&times;</button>
+                <h3 class="text-center ">CREATE PUBLIC POST</h3>
+            </div>
+            <div class="modal-body my-modal-body ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group ">
+                            <input type="text " name="nickname " placeholder="Enter your nickname(Optional) "
+                                class="form-control ">
+                        </div>
+                        <div class="input-group mar ">
+                            <label class="form-control file ">
+                                <span>Upload an image</span>
+                                <input type="file " name="upload-img " placeholder="Upload an image " class=" "
+                                    id="inp-photo ">
+                                <label for="inp-photo " class="btn-in "><i class="fa fa-upload "></i></label>
+                            </label>
+                        </div>
+                        <div class="form-group ">
+                            <textarea type="text " name="question " rows="5 " placeholder="Enter a question "
+                                class="form-control "></textarea>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-lg-7 col-md-6 col-sm-4 col-3 ">
+                        <div class="loc-icon ">
+                            <img src="assets/images/icon/pin_sm.png ">
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-8 col-9 ">
+                        <button class="btn btn-yellow btn-block " data-dismiss="modal ">SUBMIT</button>
+                    </div>
+                    <div style="color: red ">
+                        <span>{{errormessage}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Create Post -->
+<div id="involvement" class="modal fade " role="dialog ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header my-modal-header ">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="text-center">CREATE POST</h3>
+            </div>
+            <div class="modal-body my-modal-body ">
+                <form [formGroup]="postForm" (ngSubmit)="submit_create_posts($event)">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group ">
+                                        <input formControlName="name" type="text" name="post-name"
+                                            placeholder="Enter post name" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select formControlName="project_type" (click)="getType()" id='selType'
+                                            class="form-control ash-select">
+                                            <option hidden>Select Project Type</option>
+                                            <option *ngFor="let b of project_typeData; let i=index"
+                                                [value]="project_typeData[i]?.id">
+                                                {{project_typeData[i].type}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div *ngIf="hideCat == 0" class="form-group">
+                                        <select formControlName="project_category" class="form-control ash-select">
+                                            <option class="light-color-me" hidden>Select Project Category
+                                            </option>
+                                            <option *ngFor="let c of project_categoryData; let i=index"
+                                                [value]="project_categoryData[i]?.id">
+                                                {{project_categoryData[i].category}}
+                                            </option>
+                                        </select>
+
+                                    </div>
+
+                                    <!-- <div class="form-group">
+                                                <input type="text" name="year" placeholder="Select year" class="yearselect form-control">
+                                            </div> -->
+
+                                    <div *ngIf="typ == 0" class="form-group">
+                                        <input formControlName="year" placeholder="Enter Year in YYYY" id="yearpicker"
+                                            class="form-control" type="number">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="typ == 1" class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input formControlName="t_type_start_date" id="start-date"
+                                            placeholder="Enter start-date" type="text" onfocus="(this.type='date')"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" onfocus="(this.type='date')"
+                                            formControlName="t_type_end_date" id="end-date" placeholder="Enter end-date"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+
+                                        <mat-chip-list #chipList aria-label="Taggs selection">
+                                            <mat-chip *ngFor="let tagg of taggs" [selectable]="selectable"
+                                                [removable]="removable" (removed)="remove(tagg)">
+                                                {{tagg.name}}
+                                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                            </mat-chip>
+                                        </mat-chip-list> <br>
+                                        <input type="text" formControlName="tags" data-toggle="modal"
+                                            data-target="#enter-tags" placeholder="Enter tags"
+                                            class="form-control tagcss">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="hidden" id="map-lat" name="lat" placeholder="Enter tags"
+                                            class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" id="map-lon" name="lon" placeholder="Enter tags"
+                                            class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" id="myimg" name="imgg" placeholder="get image"
+                                            class="form-control">
+                                    </div>
+
+                                    <div class="form-group abtpst">
+                                        <textarea formControlName="about_post" type="text" name="question" rows="5"
+                                            placeholder="Type something.. " class="form-control "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="some-gap">
+                                <div class="mark-inv-img">
+                                    <ul class="pictures">
+                                        <li class="marks" *ngFor="let img of base64Image; let i = index">
+                                            <a href="JavaScript:void(0);" data-toggle="modal" data-target="#my-pic">
+                                                <img [src]="img">
+                                            </a>
+                                            <button class="remove-pic" (click)="removeImage(img, i)">&#10006;</button>
+                                            <input class="credit-field" [attr.id]="'imgTag' + i" type="text"
+                                                placeholder="Enter Credit" />
+                                        </li>
+                                    </ul>
+                                    <!-- <button (click)="addInput()">Add Input</button>
+                                    <div *ngFor="let input of inputs">
+                                        <input [(ngModel)]="input.value">
+                                    </div>
+                                    {{inputs | json}} -->
+
+                                    <!-- <label class="add-here">
+                                            <input type="file" name="pictures" id="multiImageSelet" multiple="" class="hide-me">
+                                            <i class="fa fa-plus"></i>
+                                        </label> -->
+                                </div>
+
+                                <div *ngIf="otherOption == true" class="mark-inv-info">
+                                    <!-- <button class="btn btn-normal btn-block" data-toggle="modal"
+                                        data-target="#enter-credit">{{postImageTag}}</button> -->
+                                    <div class="form-group flex-me">
+                                        <input id="post_perms" name="accept" type="checkbox"><span> I here by confirm
+                                            that the content
+                                            uploaded here is original and i have rights to post them. </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-lg-7 col-md-7 col-sm-6 col-6 ">
+                            <div class="loc-icon ">
+                                <ul>
+                                    <li><label class="my-add-img"><input type="file" id="multiImageSelet"
+                                                (change)="chooseImage($event)" multiple class="hide-me"><i
+                                                class="fa fa-image"></i></label></li>
+                                    <li><a href="JavaScript:void(0);" data-dismiss="modal" data-toggle="modal"
+                                            data-target="#involvement-location"><i class="fa fa-map-marker"></i></a>
+                                    </li>
+                                    <li><a href="JavaScript:void(0);" data-toggle="modal"
+                                            data-target="#enter-user-tags">@</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-6 col-6">
+                            <button class="btn btn-yellow btn-block">SUBMIT</button>
+                        </div>
+                    </div>
+                    <div style="color: red ">
+                        <span>{{errormessage}}</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Involvement Location Modal -->
+<div id="involvement-location" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="map-rel">
+                <div class="modal-body" style="width: 100%;height: 300px;" id="create_post_map">
+                </div>
+                <button class="map-absol"><img src="assets/images/icon/pin_red.png" /></button>
+            </div>
+            <div class="modal-footer my-modal-footer">
+                <button class="btn btn-simple btn-block" data-dismiss="modal" data-toggle="modal"
+                    data-target="#involvement" (click)="GetCenterLocation($event)">SELECT LOCATION</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<app-footer></app-footer>
+
+<!-- Post Question Modal -->
+<div id="post-question" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header my-modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="text-center">POST A QUESTION</h3>
+            </div>
+            <div class="modal-body my-modal-body" [formGroup]=QuestCreateForm>
+                <div class="form-group">
+                    <input type="text" formControlName="nickName" placeholder="Enter your nickname (optional)"
+                        class="form-control">
+                </div>
+                <div *ngIf="isNickname==true" class="text-danger">
+                    {{message}}
+                </div>
+                <div class="form-group">
+                    <textarea formControlName="description" placeholder="Write description"
+                        class="form-control"></textarea>
+                </div>
+                <div *ngIf="isDescription==true" class="text-danger">
+                    {{message}}
+                </div>
+                <div class="form-group">
+                    <input type="file" accept="image/*" style="display:none" name="image" id="questimg"
+                        class="form-control" (change)="onFileChanged($event)">
+                    <label for="questimg" class="btn btn-simple btn-block">Add picture</label>
+
+                </div>
+
+                <div class="location-img">
+                    <img id="imagefile" src="/assets/images/place_image.png" />
+                </div>
+
+                <div *ngIf="isImage==true" class="text-danger">
+                    {{message}}
+                </div>
+                <button type="submit" (click)="saveQuestion($event)" class="btn btn-simple btn-block">Submit</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="enter-credit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header my-modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="text-center">ENTER OWNER'S NAME</h3>
+            </div>
+            <div class="modal-body my-modal-body">
+                <div class="form-group">
+                    <input type="text" id="creditt" name="credit" placeholder="Type" class="form-control">
+                </div>
+                <button class="btn btn-simple btn-block" (click)="hit()" data-dismiss="modal">SAVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tags Model -->
+
+
+<div id="enter-tags" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header my-modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="text-center">ENTER TAGS</h3>
+            </div>
+            <div class="modal-body my-modal-body">
+                <div class="form-group">
+                    <mat-chip-list #chipList aria-label="Taggs selection">
+                        <mat-chip *ngFor="let tagg of taggs" id="mtChip" [selectable]="selectable"
+                            [removable]="removable" (removed)="remove(tagg)">
+                            {{tagg.name}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input [formControl]="new_tag" (keyup.enter)="onEnter()" placeholder="New tagg..."
+                            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)"
+                            class="form-control">
+                    </mat-chip-list>
+                </div>
+                <div class="form-group">
+                    <ul *ngFor=" let t of tagsList" class="tag-ul">
+                        <li (click)="addTag($event)">{{t}}</li>
+                    </ul>
+                </div>
+                <button class="btn btn-simple btn-block" (click)="saveTag()" data-dismiss="modal">SAVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="enter-user-tags" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header my-modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="text-center">Select Users</h3>
+            </div>
+            <div class="modal-body my-modal-body">
+                <div class="form-group">
+                    <mat-chip-list #chipList aria-label="userTaggs selection">
+                        <mat-chip *ngFor="let u of userTaggs" [selectable]="selectable"
+                            [removable]="removable" (removed)="remove2(u)">
+                            {{u.username}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input [formControl]="userTag" placeholder="Tag..."
+                            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add2($event)"
+                            class="form-control">
+                    </mat-chip-list>
+                </div>
+                <div class="form-group">
+                    <!-- <ul *ngFor=" let t of userTagsList" class="tag-ul">
+                        <li (click)="addUserTag($event)">{{t.username}}</li>
+                        <span class="tag-span">{{t.email}}</span>
+                    </ul> -->
+                    <mat-list >
+                        <mat-list-item *ngFor="let user of userTagsList" (click)="addUserTag(user)">
+                            <img mat-list-avatar [src]="user.profile_image" >
+                          <h4 mat-line >{{user.username}}</h4>
+                          <h6 class="em-color" mat-line> {{user.email}} </h6>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <button class="btn btn-simple btn-block" (click)="saveTag()" data-dismiss="modal">SAVE</button>
+            </div>
+        </div>
+    </div>
+</div>
